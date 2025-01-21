@@ -21,20 +21,6 @@ function drawNode(node) {
     context.fill();
 }
 
-function click(e) {
-    let node = {
-        x: e.x,
-        y: e.y,
-        radius: 10,
-        fillStyle: '#22cccc',
-        strokeStyle: '#009999'
-    };
-    nodes.push(node);
-    draw();
-}
-
-window.onclick = click;
-
 var selection = undefined;
 
 function within(x, y) {
