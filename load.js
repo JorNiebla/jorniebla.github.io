@@ -1,107 +1,128 @@
+// const canvas = document.getElementById('graph-canvas');
+// const context = canvas.getContext('2d');
+const resultTable = document.querySelector("#dijkstra-table tbody");
+const selects = [document.getElementById("node1"),document.getElementById("node2"),document.getElementById("start-node")]
+const pesoInput = document.getElementById("pesoInput")
+const nodosTable = document.querySelector("#nodes-table tbody");
+const aristasTable = document.querySelector("#edges-table tbody");
 
-const canvas = document.querySelector('canvas');
-const context = canvas.getContext('2d');
+var graph = {};
 
-var nodes = [];
+var mode = 0
 
-function resize() {
-    canvas.width = window.innerWidth;
-    canvas.height = window.innerHeight;
-}
+// ------------------------- Algoritmo -----------------------------------------
 
-window.onresize = resize;
-resize();
+function runDijkstra() {
+    const startNode = selects[2].value;
+    const costs = {};
+    const processed = [];
+    const predecessors = {};
 
-function drawNode(node) {
-    context.beginPath();
-    context.fillStyle = node.fillStyle;
-    context.arc(node.x, node.y, node.radius, 0, Math.PI * 2, true);
-    context.strokeStyle = node.strokeStyle;
-    context.stroke();
-    context.fill();
-}
-
-var selection = undefined;
-
-function within(x, y) {
-    return nodes.find(n => {
-        return x > (n.x - n.radius) && 
-            y > (n.y - n.radius) &&
-            x < (n.x + n.radius) &&
-            y < (n.y + n.radius);
-    });
-}
-
-function move(e) {
-    if (selection && e.buttons) {
-        selection.x = e.x;
-        selection.y = e.y;
-        draw();
-    }
-}
-
-
-var edges = [];
-
-function draw() {
-    context.clearRect(0, 0, window.innerWidth, window.innerHeight);
-
-    for (let i = 0; i < edges.length; i++) {
-        let fromNode = edges[i].from;
-        let toNode = edges[i].to;
-        context.beginPath();
-        context.strokeStyle = fromNode.strokeStyle;
-        context.moveTo(fromNode.x, fromNode.y);
-        context.lineTo(toNode.x, toNode.y);
-        context.stroke();
+    // Inicializar costos
+    for (let node in graph) {
+        costs[node] = node === startNode ? 0 : Infinity;
+        predecessors[node] = null;
     }
 
-    for (let i = 0; i < nodes.length; i++) {
-        let node = nodes[i];
-        context.beginPath();
-        context.fillStyle = node.selected ? node.selectedFill : node.fillStyle;
-        context.arc(node.x, node.y, node.radius, 0, Math.PI * 2, true);
-        context.strokeStyle = node.strokeStyle;
-        context.fill();
-        context.stroke();
-    }
-}
+    let node = findLowestCostNode(costs, processed);
 
-function down(e) {
-    let target = within(e.x, e.y);
-    if (selection && selection.selected) {
-        selection.selected = false;
-    }
-    if (target) {
-        if (selection && selection !== target) {
-            edges.push({ from: selection, to: target });
+    while (node) {
+        const cost = costs[node];
+        const neighbors = graph[node];
+
+        for (let neighbor in neighbors) {
+            const newCost = cost + neighbors[neighbor];
+            if (newCost < costs[neighbor]) {
+                costs[neighbor] = newCost;
+                predecessors[neighbor] = node;
+            }
         }
-        selection = target;
-        selection.selected = true;
-        draw();
+
+        processed.push(node);
+        node = findLowestCostNode(costs, processed);
+    }
+
+    displayResults(costs, predecessors);
+}
+
+function findLowestCostNode(costs, processed) {
+    let lowestCost = Infinity;
+    let lowestCostNode = null;
+
+    for (let node in costs) {
+        const cost = costs[node];
+        if (cost < lowestCost && !processed.includes(node)) {
+            lowestCost = cost;
+            lowestCostNode = node;
+        }
+    }
+
+    return lowestCostNode;
+}
+
+function displayResults(costs, predecessors) {
+    resultTable.innerHTML = "";
+
+    for (let node in costs) {
+        const row = document.createElement("tr");
+
+        const nodeCell = document.createElement("td");
+        nodeCell.textContent = node;
+
+        const costCell = document.createElement("td");
+        costCell.textContent = costs[node] === Infinity ? "∞" : costs[node];
+
+        const predecessorCell = document.createElement("td");
+        predecessorCell.textContent = predecessors[node] || "-";
+
+        row.appendChild(nodeCell);
+        row.appendChild(costCell);
+        row.appendChild(predecessorCell);
+
+        resultTable.appendChild(row);
     }
 }
 
-function up(e) {
-    if (!selection) {
-        let node = {
-            x: e.x,
-            y: e.y,
-            radius: 10,
-            fillStyle: '#22cccc',
-            strokeStyle: '#009999',
-            selectedFill: '#88aaaa',
-            selected: false
-        };
-        nodes.push(node);
-        draw();
+// ------------------------------ Cosas de dibujo ------------------------------
+function updateForms() {
+    let select = selects[0]
+    const temp = select.length
+    for (let i = 0; i < temp; i++) {
+        selects.forEach((s) => s[0].remove())
     }
-    if (selection && !selection.selected) {
-        selection = undefined;
-    }
-    draw();
+    nodosTable.innerHTML = "";
+    aristasTable.innerHTML = "";
+    Object.keys(graph).forEach( function(v){
+
+        selects.forEach((s) => s.add(new Option(v)))
+        row = document.createElement("tr");
+        const nodeCell = document.createElement("td")
+        nodeCell.textContent = v;
+        row.appendChild(nodeCell)
+        nodosTable.appendChild(row)
+
+        //ESCRIBIR PARA TABLA DE ARISTAS
+    })
+        
 }
 
-window.onmousemove = move;
-window.onmousedown = down;
-window.onmouseup = up;
+function newNode() {
+    var nodename = null
+    nodename = window.prompt("¿Como se llamará el nodo?")
+    if (nodename != null) {
+        graph[nodename] = {}
+    }
+    updateForms()
+}
+
+function newEdge() {
+    let pesoValue = Number(pesoInput.value)
+    let node1 = selects[0].value
+    let node2 = selects[1].value
+    graph[node1][node2]=pesoValue
+    graph[node2][node1]=pesoValue
+}
+
+function convert2SVG() {
+    console.log("AQUI DEBERIA CREAR EL SVG CON LOS DATOS")
+}
