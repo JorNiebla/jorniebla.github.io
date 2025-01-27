@@ -3,6 +3,7 @@
 const resultTable = document.querySelector("#dijkstra-table tbody");
 const selects = [document.getElementById("node1"),document.getElementById("node2"),document.getElementById("start-node")]
 const pesoInput = document.getElementById("pesoInput")
+const graphSVG = document.getElementById("graph-svg")
 const nodosTable = document.querySelector("#nodes-table tbody");
 const aristasTable = document.querySelector("#edges-table tbody");
 
@@ -92,18 +93,24 @@ function updateForms() {
     }
     nodosTable.innerHTML = "";
     aristasTable.innerHTML = "";
-    Object.keys(graph).forEach( function(v){
-
-        selects.forEach((s) => s.add(new Option(v)))
+    for (const [key, value] of Object.entries(graph)) {
+        selects.forEach((s) => s.add(new Option(key)))
         row = document.createElement("tr");
-        const nodeCell = document.createElement("td")
-        nodeCell.textContent = v;
+        let nodeCell = document.createElement("td")
+        nodeCell.textContent = key;
         row.appendChild(nodeCell)
         nodosTable.appendChild(row)
 
-        //ESCRIBIR PARA TABLA DE ARISTAS
-    })
-        
+
+        for (const [k, v] of Object.entries(value)) {
+            row = document.createElement("tr");
+            let edgeCell = document.createElement("td")
+            
+            edgeCell.textContent = `${key}->${k}: ${v}`;
+            row.appendChild(edgeCell)
+            aristasTable.appendChild(row)
+        }
+    }
 }
 
 function newNode() {
@@ -113,6 +120,7 @@ function newNode() {
         graph[nodename] = {}
     }
     updateForms()
+    convert2SVG()
 }
 
 function newEdge() {
@@ -121,8 +129,43 @@ function newEdge() {
     let node2 = selects[1].value
     graph[node1][node2]=pesoValue
     graph[node2][node1]=pesoValue
+    updateForms()
+    convert2SVG()
 }
 
 function convert2SVG() {
-    console.log("AQUI DEBERIA CREAR EL SVG CON LOS DATOS")
+    //---------Calcular posiciones----------
+    graphL = Object.keys(graph).length
+    let nodeCords = {}
+    const angle = 2 * Math.PI / graphL
+    let i = 0
+    graphSVG.innerHTML = ""
+    Object.keys(graph).forEach(function(k){
+        let temp = [Math.floor(250 + 200 * Math.sin(i * angle)),Math.floor(250 + 200 * Math.cos(i * angle))]
+        nodeCords[k] = temp
+        i = i + 1
+    })
+
+    //Aristas
+    for (const [k, v] of Object.entries(graph)) {
+        let x1 = nodeCords[k][0]
+        let y1 = nodeCords[k][1]
+        for (const [j,peso] of Object.entries(v)) {
+            let x2 = nodeCords[j][0]
+            let y2 = nodeCords[j][1]
+            let mx = Math.floor((x1+x2)/2)
+            let my = Math.floor((y1+y2)/2)
+            graphSVG.innerHTML += `<line x1=\"${x1}\" y1=\"${y1}\" x2=\"${x2}\" y2=\"${y2}\" stroke=\"black\" stroke-width=\"2\"></line>`
+            graphSVG.innerHTML += `<rect x=\"${mx-10}\" y=\"${my-10}\" width=\"20\" height=\"20\" rx=\"3\" />`
+            graphSVG.innerHTML += `<text x=\"${mx-5}\" y=\"${my+5}\" fill=\"red\" font-size=\"14\">${peso}</text>`
+        }
+    }
+
+    //Nodos
+    for (const [k, v] of Object.entries(nodeCords)) {
+        let cx = v[0]
+        let cy = v[1]
+        graphSVG.innerHTML += `<circle cx=\"${cx}\" cy=\"${cy}\" r=\"20\" fill=\"lightblue\" stroke=\"black\" stroke-width=\"2\"></circle>\n`
+        graphSVG.innerHTML += `<text x=\"${cx-5}\" y=\"${cy+5}\" fill="black" font-size="15">${k}</text>`
+    }
 }
