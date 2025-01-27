@@ -18,7 +18,7 @@ html, body {
     background: var(--bg);
     height: 100%;
     width: 100%;
-    overflow: hidden;
+    overflow: auto;
 }
 *, body, button, input, select, textarea, canvas {
     text-rendering: optimizeLegibility;
