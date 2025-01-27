@@ -85,6 +85,29 @@ function displayResults(costs, predecessors) {
 }
 
 // ------------------------------ Cosas de dibujo ------------------------------
+function updateNodesForms() {
+    selects.forEach((s) => s.add(new Option(Object.keys(graph).at(-1))))
+    nodosTable.innerHTML = "";
+    for (const [key] of Object.keys(graph)) {
+        row = document.createElement("tr");
+        let nodeCell = document.createElement("td")
+        nodeCell.textContent = key;
+        row.appendChild(nodeCell)
+        nodosTable.appendChild(row)
+    }
+}
+function updateEdgesForms() {
+    aristasTable.innerHTML = "";
+    for (const [key, value] of Object.entries(graph)) {
+        for (const [k, v] of Object.entries(value)) {
+            row = document.createElement("tr");
+            let edgeCell = document.createElement("td")
+            edgeCell.textContent = `${key}->${k}: ${v}`;
+            row.appendChild(edgeCell)
+            aristasTable.appendChild(row)
+        }
+    }
+}
 function updateForms() {
     let select = selects[0]
     const temp = select.length
@@ -101,11 +124,9 @@ function updateForms() {
         row.appendChild(nodeCell)
         nodosTable.appendChild(row)
 
-
         for (const [k, v] of Object.entries(value)) {
             row = document.createElement("tr");
             let edgeCell = document.createElement("td")
-            
             edgeCell.textContent = `${key}->${k}: ${v}`;
             row.appendChild(edgeCell)
             aristasTable.appendChild(row)
@@ -119,7 +140,7 @@ function newNode() {
     if (nodename != null) {
         graph[nodename] = {}
     }
-    updateForms()
+    updateNodesForms()
     convert2SVG()
 }
 
@@ -129,7 +150,8 @@ function newEdge() {
     let node2 = selects[1].value
     graph[node1][node2]=pesoValue
     graph[node2][node1]=pesoValue
-    updateForms()
+    //updateForms()
+    updateEdgesForms()
     convert2SVG()
 }
 
