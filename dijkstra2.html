@@ -8,11 +8,9 @@
 </head>
 <body>
     <div class="graph">
-        
-        <div>
-        <button type="button" onclick="newNode()">Nuevo Nodo</button>
+        <button class="button buttonNode" onclick="newNode()">Nuevo Nodo</button>
         <br/>
-        <button type="button" onclick="newEdge()">Nueva Arista</button>
+        <button class="button buttonEdge" onclick="newEdge()">Nueva Arista</button>
         <label>Peso:</label>
         <input type="number" id="pesoInput">
         <label>Nodos:</label>
@@ -20,52 +18,58 @@
         </select>
         <select id="node2">
         </select>
-        <br/>   
-        <div>
-        <table id="nodes-table" style="border: 1px solid black;" style="float: left">
-            <thead>
-                <tr>
-                    <th>Nodos</th>
-                </tr>
-            </thead>
-            <tbody>
-                <!-- Resultados dinámicos -->
-            </tbody>
-        </table>
-        <table id="edges-table" style="border: 1px solid black;" style="float: left">
-            <thead>
-                <tr>
-                    <th>Nodos</th>
-                </tr>
-            </thead>
-            <tbody>
-                <!-- Resultados dinámicos -->
-            </tbody>
-        </table>
+        <br/> 
+
+        <div class="container">
+
+            <div class="left">
+                <svg id="graph-svg" width="500" height="500" style="border: 1px solid black;">
+                </svg> 
+            </div>
+
+            <div class="right">
+                <table id="nodes-table" style="border: 1px solid black;" style="float: left">
+                    <thead>
+                        <tr>
+                            <th>Nodos</th>
+                            <th></th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <!-- Resultados dinámicos -->
+                    </tbody>
+                </table>
+                <table id="edges-table" style="border: 1px solid black;" style="float: left">
+                    <thead>
+                        <tr>
+                            <th>Aristas</th>
+                            <th></th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <!-- Resultados dinámicos -->
+                    </tbody>
+                </table>
+                <br></br>
+                <label for="start-node">Selecciona el nodo inicial:</label>
+                <select id="start-node" onchange="runDijkstra()"></select>
+                <br></br>
+                <table id="dijkstra-table">
+                    <thead>
+                        <tr>
+                            <th>Nodo</th>
+                            <th>Costo acumulado</th>
+                            <th>Predecesor</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <!-- Resultados dinámicos -->
+                    </tbody>
+                </table>
+            </div>
+
+            
         </div>
-        <svg id="graph-svg" width="500" height="500" style="border: 1px solid black;">
-        </svg>
-        
-        
-        </div>
-        <form id="dijkstra-form">
-            <label for="start-node">Selecciona el nodo inicial:</label>
-            <select id="start-node">
-            </select>
-            <button type="button" onclick="runDijkstra()">Ejecutar</button>
-        </form>
-        <table id="dijkstra-table">
-            <thead>
-                <tr>
-                    <th>Nodo</th>
-                    <th>Costo acumulado</th>
-                    <th>Predecesor</th>
-                </tr>
-            </thead>
-            <tbody>
-                <!-- Resultados dinámicos -->
-            </tbody>
-        </table>
     </div>
 </body>
 </html>
