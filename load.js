@@ -101,7 +101,7 @@ function updateNodesForms(type,n) {
         }
     }
     nodosTable.innerHTML = "";
-    for (const [key] of Object.keys(graph)) {
+    for (const [key,v] of Object.entries(graph)) {
         console.log(key)
         row = document.createElement("tr");
 
@@ -147,7 +147,7 @@ function removeEdge(n1,n2) {
 function removeNode(n1) {
     delete graph[n1]
     for(const [key,value] of Object.entries(graph)) {
-        for(const [k] of Object.keys(value)) {
+        for(const [k,v] of Object.entries(value)) {
             if (k == n1)
                 delete graph[key][k]
         }
@@ -158,17 +158,24 @@ function removeNode(n1) {
     runDijkstra()
 }
 
-const removeNonASCII = (str) => str.replace(/[^\x20-\x7E]/g, "");
+const removeNonASCII = (str) => str.replace(/[^\x20-\x7E]/g, "?");
+
+function getlength(number) {
+    return number.toString().length;
+}
 
 function newNode() {
     var nodename = null
     nodename = window.prompt("¿Como se llamará el nodo?")
     if (nodename != null) {
-        node = removeNonASCII(nodename);
-        graph[node] = {}
-        updateNodesForms(1,node)
-        convert2SVG()
-        runDijkstra()
+        cleannodes = removeNonASCII(nodename);
+        nodes = cleannodes.split(',')
+        nodes.forEach(function(node){
+            graph[node] = {}
+            updateNodesForms(1,node)
+            convert2SVG()
+            runDijkstra()
+        })
     }
 }
 
@@ -191,7 +198,7 @@ function convert2SVG() {
     let i = 0
     graphSVG.innerHTML = ""
     Object.keys(graph).forEach(function(k){
-        let temp = [Math.floor(250 + 200 * Math.sin(i * angle)),Math.floor(250 + 200 * Math.cos(i * angle))]
+        let temp = [Math.floor(250 + 200 * Math.cos(i * angle + Math.PI)),Math.floor(250 + 200 * Math.sin(i * angle + Math.PI))]
         nodeCords[k] = temp
         i = i + 1
     })
@@ -216,8 +223,8 @@ function convert2SVG() {
             }
             
             graphSVG.innerHTML += `<line x1=\"${x1}\" y1=\"${y1}\" x2=\"${x2}\" y2=\"${y2}\" stroke=\"black\" stroke-width=\"2\"></line>`
-            graphSVG.innerHTML += `<rect x=\"${mx-10}\" y=\"${my-10}\" width=\"20\" height=\"20\" rx=\"3\" />`
-            graphSVG.innerHTML += `<text x=\"${mx-5}\" y=\"${my+5}\" fill=\"red\" font-size=\"14\">${peso}</text>`
+            graphSVG.innerHTML += `<rect x=\"${mx-10}\" y=\"${my-10}\" width=\"${(getlength(peso)-1)*7+25}\" height=\"20\" rx=\"3\" />`
+            graphSVG.innerHTML += `<text x=\"${mx-2}\" y=\"${my+5}\" fill=\"red\" style=\"font-family:monospace;font-size:14px;\">${peso}</text>`
         }
     }
 
@@ -226,6 +233,6 @@ function convert2SVG() {
         let cx = v[0]
         let cy = v[1]
         graphSVG.innerHTML += `<circle cx=\"${cx}\" cy=\"${cy}\" r=\"20\" fill=\"lightblue\" stroke=\"black\" stroke-width=\"2\"></circle>\n`
-        graphSVG.innerHTML += `<text x=\"${cx-5}\" y=\"${cy+5}\" fill="black" font-size="15">${k}</text>`
+        graphSVG.innerHTML += `<text x=\"${cx-5}\" y=\"${cy+5}\" fill=\"black\" style=\"font-family:monospace;font-size:20px;\">${k}</text>`
     }
 }
