@@ -20,7 +20,7 @@ html, body {
     width: 100%;
     overflow: auto;
 }
-*, body, button, input, select, textarea, canvas {
+*, body, input, select, textarea, canvas {
     text-rendering: optimizeLegibility;
     -webkit-font-smoothing: antialiased;
     -moz-osx-font-smoothing: grayscale;
@@ -32,3 +32,51 @@ table{
     display:inline-block; 
     margin:10px;
   }
+
+.buttonNode {
+    border-radius: 8px;
+    background-color: #04AA6D;
+    padding: 5px;
+    text-align: center;
+    cursor: pointer;
+    color: white;
+    display: inline-block;
+    text-decoration: none;
+    font-size: 16px;
+    margin: 4px 2px;
+    text-rendering: optimizeLegibility;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+    outline: 0;
+}
+
+.buttonEdge {
+    border-radius: 8px;
+    background-color: #04AA6D;
+    padding: 5px;
+    text-align: center;
+    cursor: pointer;
+    color: white;
+    display: inline-block;
+    text-decoration: none;
+    font-size: 16px;
+    margin: 4px 2px;
+    text-rendering: optimizeLegibility;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+    outline: 0;
+}
+
+.container {
+    width:1000px;
+}
+
+.left {
+    float:left;
+    width:600px;
+}
+
+.right {
+    float:right;
+    width:400px;
+}

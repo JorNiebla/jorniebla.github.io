@@ -85,63 +85,91 @@ function displayResults(costs, predecessors) {
 }
 
 // ------------------------------ Cosas de dibujo ------------------------------
-function updateNodesForms() {
-    selects.forEach((s) => s.add(new Option(Object.keys(graph).at(-1))))
+function updateNodesForms(type,n) {
+    if (type === 1){
+        selects.forEach((s) => s.add(new Option(n)))
+    } else if (type === 0){
+        console.log("VOY A ELIMINAR")
+        console.log(n)
+        for (var j = 0; j<selects.length;j++) {
+            var s = selects[j]
+            for (var i=0; i<s.length;i++){
+                console.log("LOOP" + s.options[i].value)
+                if(s.options[i].value == n)
+                    s.remove(i)
+            }
+        }
+    }
     nodosTable.innerHTML = "";
     for (const [key] of Object.keys(graph)) {
+        console.log(key)
         row = document.createElement("tr");
+
         let nodeCell = document.createElement("td")
         nodeCell.textContent = key;
         row.appendChild(nodeCell)
+
+        let buttonCell = document.createElement("td")
+        buttonCell.innerHTML = `<button onclick=\"removeNode(\'${key}\')\">Eliminar</button>`
+        row.appendChild(buttonCell)
+
         nodosTable.appendChild(row)
     }
 }
+
 function updateEdgesForms() {
     aristasTable.innerHTML = "";
     for (const [key, value] of Object.entries(graph)) {
         for (const [k, v] of Object.entries(value)) {
             row = document.createElement("tr");
-            let edgeCell = document.createElement("td")
-            edgeCell.textContent = `${key}->${k}: ${v}`;
-            row.appendChild(edgeCell)
-            aristasTable.appendChild(row)
-        }
-    }
-}
-function updateForms() {
-    let select = selects[0]
-    const temp = select.length
-    for (let i = 0; i < temp; i++) {
-        selects.forEach((s) => s[0].remove())
-    }
-    nodosTable.innerHTML = "";
-    aristasTable.innerHTML = "";
-    for (const [key, value] of Object.entries(graph)) {
-        selects.forEach((s) => s.add(new Option(key)))
-        row = document.createElement("tr");
-        let nodeCell = document.createElement("td")
-        nodeCell.textContent = key;
-        row.appendChild(nodeCell)
-        nodosTable.appendChild(row)
 
-        for (const [k, v] of Object.entries(value)) {
-            row = document.createElement("tr");
             let edgeCell = document.createElement("td")
             edgeCell.textContent = `${key}->${k}: ${v}`;
             row.appendChild(edgeCell)
+
+            let buttonCell = document.createElement("td")
+            buttonCell.innerHTML = `<button onclick=\"removeEdge(\'${key}\',\'${k}\')\">Eliminar</button>`
+            row.appendChild(buttonCell)
+            
             aristasTable.appendChild(row)
         }
     }
 }
+
+function removeEdge(n1,n2) {
+    delete graph[n1][n2]
+    delete graph[n2][n1]
+    updateEdgesForms()
+    convert2SVG()
+    runDijkstra()
+}
+
+function removeNode(n1) {
+    delete graph[n1]
+    for(const [key,value] of Object.entries(graph)) {
+        for(const [k] of Object.keys(value)) {
+            if (k == n1)
+                delete graph[key][k]
+        }
+    }
+    updateNodesForms(0,n1)
+    updateEdgesForms()
+    convert2SVG()
+    runDijkstra()
+}
+
+const removeNonASCII = (str) => str.replace(/[^\x20-\x7E]/g, "");
 
 function newNode() {
     var nodename = null
     nodename = window.prompt("¿Como se llamará el nodo?")
     if (nodename != null) {
-        graph[nodename] = {}
+        node = removeNonASCII(nodename);
+        graph[node] = {}
+        updateNodesForms(1,node)
+        convert2SVG()
+        runDijkstra()
     }
-    updateNodesForms()
-    convert2SVG()
 }
 
 function newEdge() {
@@ -150,9 +178,9 @@ function newEdge() {
     let node2 = selects[1].value
     graph[node1][node2]=pesoValue
     graph[node2][node1]=pesoValue
-    //updateForms()
     updateEdgesForms()
     convert2SVG()
+    runDijkstra()
 }
 
 function convert2SVG() {
@@ -169,14 +197,24 @@ function convert2SVG() {
     })
 
     //Aristas
-    for (const [k, v] of Object.entries(graph)) {
+    var tempgraph = structuredClone(graph)
+    for (const [k, v] of Object.entries(tempgraph)) {
         let x1 = nodeCords[k][0]
         let y1 = nodeCords[k][1]
         for (const [j,peso] of Object.entries(v)) {
+            delete tempgraph[j][k]
             let x2 = nodeCords[j][0]
             let y2 = nodeCords[j][1]
-            let mx = Math.floor((x1+x2)/2)
-            let my = Math.floor((y1+y2)/2)
+            let mx = 0
+            let my = 0
+            if (x1 > x2) {
+                mx = Math.floor(((((x1+x2)/2)+x1)/2))
+                my = Math.floor(((((y1+y2)/2)+y1)/2))
+            } else {
+                mx = Math.floor(((((x1+x2)/2)+x2)/2))
+                my = Math.floor(((((y1+y2)/2)+y2)/2))
+            }
+            
             graphSVG.innerHTML += `<line x1=\"${x1}\" y1=\"${y1}\" x2=\"${x2}\" y2=\"${y2}\" stroke=\"black\" stroke-width=\"2\"></line>`
             graphSVG.innerHTML += `<rect x=\"${mx-10}\" y=\"${my-10}\" width=\"20\" height=\"20\" rx=\"3\" />`
             graphSVG.innerHTML += `<text x=\"${mx-5}\" y=\"${my+5}\" fill=\"red\" font-size=\"14\">${peso}</text>`
