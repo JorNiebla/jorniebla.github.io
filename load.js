@@ -89,12 +89,9 @@ function updateNodesForms(type,n) {
     if (type === 1){
         selects.forEach((s) => s.add(new Option(n)))
     } else if (type === 0){
-        console.log("VOY A ELIMINAR")
-        console.log(n)
         for (var j = 0; j<selects.length;j++) {
             var s = selects[j]
             for (var i=0; i<s.length;i++){
-                console.log("LOOP" + s.options[i].value)
                 if(s.options[i].value == n)
                     s.remove(i)
             }
@@ -102,7 +99,6 @@ function updateNodesForms(type,n) {
     }
     nodosTable.innerHTML = "";
     for (const [key,v] of Object.entries(graph)) {
-        console.log(key)
         row = document.createElement("tr");
 
         let nodeCell = document.createElement("td")
