@@ -186,18 +186,36 @@ function newEdge() {
     runDijkstra()
 }
 
+function getRelativeVector(angle, length, xOffset, yOffset) { 
+    return { 
+        X:Math.round(length * Math.sin(angle) + xOffset), 
+        Y:Math.round(length * Math.cos(angle) + yOffset) 
+    };
+}
+
 function convert2SVG() {
     //---------Calcular posiciones----------
-    graphL = Object.keys(graph).length
+    let graphL = Object.keys(graph).length
     let nodeCords = {}
     const angle = 2 * Math.PI / graphL
     let i = 0
     graphSVG.innerHTML = ""
     Object.keys(graph).forEach(function(k){
-        let temp = [Math.floor(250 + 200 * Math.cos(i * angle + Math.PI)),Math.floor(250 + 200 * Math.sin(i * angle + Math.PI))]
+        let temp = [Math.round(250 + 200 * Math.cos(i * angle + Math.PI)),Math.round(250 + 200 * Math.sin(i * angle + Math.PI))]
         nodeCords[k] = temp
         i = i + 1
     })
+
+
+    for (const [k, v] of Object.entries(nodeCords)) {
+        let cx = v[0]
+        let cy = v[1]
+        graphSVG.innerHTML += `<circle cx=\"${cx}\" cy=\"${cy}\" r=\"${(k.length+2)*5}\" fill=\"lightblue\" stroke=\"black\" stroke-width=\"2\"></circle>\n`
+        if (k.length === 1)
+            graphSVG.innerHTML += `<text x=\"${cx-5}\" y=\"${cy+5}\" fill=\"black\" style=\"font-family:monospace;font-size:20px;\">${k}</text>`
+        else
+            graphSVG.innerHTML += `<text x=\"${cx-k.length*5-5}\" y=\"${cy+5}\" fill=\"black\" style=\"font-family:monospace;font-size:20px;\">${k}</text>`
+    }
 
     //Aristas
     var tempgraph = structuredClone(graph)
@@ -208,27 +226,79 @@ function convert2SVG() {
             delete tempgraph[j][k]
             let x2 = nodeCords[j][0]
             let y2 = nodeCords[j][1]
+
+
+            ////////////////////PUNTOS INICIALES Y FINALES DE LA ARISTA
+            let alfa = Math.atan((y2-y1)/(x2-x1))
+            let beta = (Math.PI/2) - alfa
+            let radio1 = (k.length+2)*5
+            let radio2 = (j.length+2)*5
+            let ax1, ax2, ay1, ay2
+            if (x2 >= x1) {
+                if (y2 >= y1){
+                    //ESTO ESTA BIEN REVISAR OTROS CASOS
+                    ax1 = x1 + Math.abs(Math.cos(alfa) * radio1)
+                    ay1 = y1 + Math.abs(Math.sin(alfa) * radio1)
+
+                    ax2 = x2 - Math.abs(Math.sin(beta) * radio2)
+                    ay2 = y2 - Math.abs(Math.cos(beta) * radio2)
+                } else {
+                    ax1 = x1 + Math.abs(Math.cos(alfa) * radio1)
+                    ay1 = y1 - Math.abs(Math.sin(alfa) * radio1)
+
+                    ax2 = x2 - Math.abs(Math.sin(beta) * radio2)
+                    ay2 = y2 + Math.abs(Math.cos(beta) * radio2) 
+                }
+            } else {                
+                if (y2 >= y1){
+                    ax1 = x1 - Math.abs(Math.cos(alfa) * radio1)
+                    ay1 = y1 + Math.abs(Math.sin(alfa) * radio1)
+
+                    ax2 = x2 + Math.abs(Math.sin(beta) * radio2)
+                    ay2 = y2 - Math.abs(Math.cos(beta) * radio2)
+                } else {
+                    ax1 = x1 - Math.abs(Math.cos(alfa) * radio1)
+                    ay1 = y1 - Math.abs(Math.sin(alfa) * radio1)
+
+                    ax2 = x2 + Math.abs(Math.sin(beta) * radio2)
+                    ay2 = y2 + Math.abs(Math.cos(beta) * radio2) 
+                }
+            }
+
             let mx = 0
             let my = 0
-            if (x1 > x2) {
-                mx = Math.floor(((((x1+x2)/2)+x1)/2))
-                my = Math.floor(((((y1+y2)/2)+y1)/2))
+            if (ax1 > ax2) {
+                mx = Math.floor(((((ax1+ax2)/2)+ax1)/2))
+                my = Math.floor(((((ay1+ay2)/2)+ay1)/2))
             } else {
-                mx = Math.floor(((((x1+x2)/2)+x2)/2))
-                my = Math.floor(((((y1+y2)/2)+y2)/2))
+                mx = Math.floor(((((ax1+ax2)/2)+ax2)/2))
+                my = Math.floor(((((ay1+ay2)/2)+ay2)/2))
             }
+
+
             
-            graphSVG.innerHTML += `<line x1=\"${x1}\" y1=\"${y1}\" x2=\"${x2}\" y2=\"${y2}\" stroke=\"black\" stroke-width=\"2\"></line>`
+
+
+            
+            // let curv1 = getRelativeVector(Math.atan2((y2-y1),(x2-x1))+Math.PI,100,Math.round((x1+x2)/2),Math.round((y1+y2)/2))
+
+            graphSVG.innerHTML += `<line x1=\"${ax1}\" y1=\"${ay1}\" x2=\"${ax2}\" y2=\"${ay2}\" stroke=\"black\" stroke-width=\"2\"></line>`
+            // graphSVG.innerHTML += `<path
+            //                         id="${k}-${j}"
+            //                         fill="none"
+            //                         stroke="black"
+            //                         d="M ${ax1} ${ay1} Q ${((ax1 + ax2)/2)+30+Math.cos(alfa)} ${((ay1 + ay2)/2)+30+Math.sin(alfa)}, ${ax2} ${ay2}" />`
             graphSVG.innerHTML += `<rect x=\"${mx-10}\" y=\"${my-10}\" width=\"${(getlength(peso)-1)*7+25}\" height=\"20\" rx=\"3\" />`
             graphSVG.innerHTML += `<text x=\"${mx-2}\" y=\"${my+5}\" fill=\"red\" style=\"font-family:monospace;font-size:14px;\">${peso}</text>`
+            // graphSVG.innerHTML += `<text class="pesoText"><textPath 
+            //                         startOffset="50%" 
+            //                         dominant-baseline="middle" 
+            //                         text-anchor="middle" 
+            //                         href="#${k}-${j}">${peso}</textPath></text>`
+            
         }
     }
 
     //Nodos
-    for (const [k, v] of Object.entries(nodeCords)) {
-        let cx = v[0]
-        let cy = v[1]
-        graphSVG.innerHTML += `<circle cx=\"${cx}\" cy=\"${cy}\" r=\"20\" fill=\"lightblue\" stroke=\"black\" stroke-width=\"2\"></circle>\n`
-        graphSVG.innerHTML += `<text x=\"${cx-5}\" y=\"${cy+5}\" fill=\"black\" style=\"font-family:monospace;font-size:20px;\">${k}</text>`
-    }
+    
 }
