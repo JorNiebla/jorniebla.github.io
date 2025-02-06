@@ -1,5 +1,3 @@
-
-
 /** index.css */
 :root {
     --root-font-size: 12px;
@@ -68,7 +66,7 @@ table{
 }
 
 .container {
-    width:1000px;
+    width:1050px;
 }
 
 .left {
@@ -79,4 +77,10 @@ table{
 .right {
     float:right;
     width:400px;
+}
+
+.pesoText {
+    font: bold 40px;
+    fill: #04AA6D;
+    background: #fafafa;
 }
