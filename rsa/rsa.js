@@ -66,7 +66,7 @@ function updateInfo() {
 
 
     let errork1 = isPrime(k)
-    let errork2 = k > phin
+    let errork2 = k < phin
     let errork3 = gcd_two_numbers(k,phin) === 1
 
     if (errorp && errorq && errork1 && errork2 && errork3) {
@@ -93,7 +93,7 @@ function updateInfo() {
     errorText += errorp ? "" : "p no es un número primo.\n"
     errorText += errorq ? "" : "q no es un número primo.\n"
     errorText += errork1 ? "" : "k no es un número primo.\n"
-    errorText += errork2 ? "" : "k no puede ser menor a φ(n).\n" + phin
+    errorText += errork2 ? "" : "k no puede ser mayor a φ(n).\n"
     errorText += errork3 ? "" : "k no es coprimo con φ(n).\n"
     errorText += errord ? "" : "d no es un número válido.\n"
     errorB.textContent = errorText
