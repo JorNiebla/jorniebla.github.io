@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <title>Map</title>
+    <link rel="stylesheet" href="rsa.css">
+    <script defer type="text/javascript" src="rsa.js"></script>
+</head>
+<body>
+    <div class="container">
+        <div class="left">
+            <form id="input-form">
+                <table>
+                    <caption>
+                        Tabla de datos para las claves
+                    </caption>
+                    <tbody>
+                        <tr>
+                            <th scope="row">p</th>
+                            <td><input type="number" onInput="updateInfo()" id="pInput"></td>
+                        </tr>
+                        <tr>
+                            <th scope="row">q</th>
+                            <td><input type="number" onInput="updateInfo()" id="qInput"></td>
+                        </tr>
+                        <tr>
+                            <th scope="row">n</th>
+                            <td><label form="input-form" id="nLabel"></td>
+                        </tr>
+                        <tr>
+                            <th scope="row">φ(n)</th>
+                            <td><label form="input-form" id="phinLabel"></td>
+                        </tr>
+                        <tr>
+                            <th scope="row">k</th>
+                            <td><input type="number" onInput="updateInfo()" id="kInput"></td>
+                        </tr>
+                        <tr>
+                            <th scope="row">d</th>
+                            <td><input type="number" onInput="updateInfo()" id="dInput"></td>
+                        </tr>
+                    <tbody>
+                </table>
+            </form>
+            <b id="errors"></b> 
+        </div>
+        <div class="right">
+            <form id="calc-form">
+                <table>
+                    <caption>
+                        Tabla calculadora posibles números d
+                    </caption>
+                    <tbody>
+                        <tr>
+                            <th scope="row">d1</th>
+                            <td><label form="input-form" id="d1">?</td>
+                        </tr>
+                        <tr>
+                            <th scope="row">d2</th>
+                            <td><label form="input-form" id="d2">?</td>
+                        </tr>
+                        <tr>
+                            <th scope="row">d3</th>
+                            <td><label form="input-form" id="d3">?</td>
+                        </tr>
+                        <tr>
+                            <th scope="row">d4</th>
+                            <td><label form="input-form" id="d4">?</td>
+                        </tr>
+                    <tbody>
+                </table>
+            </form>
+        </div>
+    </div>
+</body>
+</html>
