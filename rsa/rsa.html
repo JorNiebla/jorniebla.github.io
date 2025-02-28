@@ -16,33 +16,44 @@
                     </caption>
                     <tbody>
                         <tr>
+                            <th scope="row">Dato</th>
+                            <td><b>Valor</b></td>
+                            <td><b>Información</b></td>
+                        </tr>
+                        <tr>
                             <th scope="row">p</th>
-                            <td><input type="number" onInput="updateInfo()" id="pInput"></td>
+                            <td><input size="10" type="number" onInput="updateInfo()" onBlur="updateInfo()" id="pInput"></td>
+                            <td><label form="input-form" id="pInfo">Número primo 1</td>
                         </tr>
                         <tr>
                             <th scope="row">q</th>
-                            <td><input type="number" onInput="updateInfo()" id="qInput"></td>
+                            <td><input size="10" type="number" onInput="updateInfo()" onBlur="updateInfo()" id="qInput"></td>
+                            <td><label form="input-form" id="qInfo">Número primo 2</td>
                         </tr>
                         <tr>
                             <th scope="row">n</th>
                             <td><label form="input-form" id="nLabel"></td>
+                            <td><label form="input-form" id="nInfo">n = p · q</td>
                         </tr>
                         <tr>
                             <th scope="row">φ(n)</th>
                             <td><label form="input-form" id="phinLabel"></td>
+                            <td><label form="input-form" id="phinInfo">φ(n) = (p-1) · (q-1)</td>
                         </tr>
                         <tr>
                             <th scope="row">k</th>
-                            <td><input type="number" onInput="updateInfo()" id="kInput"></td>
+                            <td><input size="10" type="number" onInput="updateInfo()" onBlur="updateInfo()" id="kInput"></td>
+                            <td><label form="input-form" id="kInfo">Número primo 3, inferior a φ(n) y coprimo a φ(n)</td>
                         </tr>
                         <tr>
                             <th scope="row">d</th>
-                            <td><input type="number" onInput="updateInfo()" id="dInput"></td>
+                            <td><input size="10" type="number" onInput="updateInfo()" onBlur="updateInfo()" id="dInput"></td>
+                            <td><label form="input-form" id="dInfo">Número que cumpla d = (1+x·φ(n))/k</td>
                         </tr>
                     <tbody>
                 </table>
             </form>
-            <b id="errors"></b> 
+            <b class="error" id="errors"></b> 
         </div>
         <div class="right">
             <form id="calc-form">

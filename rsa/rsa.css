@@ -6,6 +6,10 @@ table {
     letter-spacing: 1px;
 }
 
+.error {
+    color: red;
+}
+
 caption {
     caption-side: bottom;
     padding: 10px;
