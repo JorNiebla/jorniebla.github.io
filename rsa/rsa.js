@@ -46,7 +46,6 @@ function gcd_two_numbers(x, y) {
     return x;
 }
 
-
 function updateInfo() {
     let errorText = ""
     let p = Number(pInput.value)
@@ -98,3 +97,5 @@ function updateInfo() {
     errorText += errord ? "" : "d no es un número válido.\n"
     errorB.textContent = errorText
 }
+
+updateInfo();
