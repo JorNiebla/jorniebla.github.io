@@ -25,14 +25,27 @@
         editor.session.setMode("ace/mode/python");
       </script>
 
-      <div id="console" contenteditable>function foo(items) {
+      
+
+      <textarea id="console" contenteditable>function foo(items) {
         var x = "All this is syntax highlighted";
         return x;
-      }</div>
+      }</textarea>
 
       <script type="text/python3">
-        from interpreter import Interpreter
-        Interpreter("console", default_css=True)
+        from browser import document, window
+        from browser import html
+        import header
+
+        import editor
+        # next functions are defined in editor.py
+        def run(ev):
+            document['console'].value = ''
+            editor.run(editor.editor.getValue())
+            
+        document['run'].bind('click', run)
+
+        editor.reset()
       </script>
     </div>
   </body>
