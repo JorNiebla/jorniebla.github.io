@@ -25,7 +25,7 @@ try:
             return
         storage["py_src"] = editor.getValue()
     editor = window.ace.edit("editor")
-    editor.setTheme("ace/theme/solarized_light")
+    #editor.setTheme("ace/theme/solarized_light")
     editor.session.setMode("ace/mode/python")
     editor.session.on('change', handle_editor_change)
     editor.session.setTabSize(tab_size)
