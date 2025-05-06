@@ -14,9 +14,6 @@ else:
     storage = None
 
 # set height of container to 75% of screen
-_height = document.documentElement.clientHeight
-_s = document['container']
-_s.style.height = '%spx' % int(_height * 0.85)
 
 has_ace = True
 tab_size = 4
@@ -98,12 +95,6 @@ if "console" in document:
 
 def to_str(xx):
     return str(xx)
-
-info = sys.implementation.version
-version = '%s.%s.%s' % (info.major, info.minor, info.micro)
-if info.releaselevel == "rc":
-    version += f"rc{info.serial}"
-document['version'].text = version
 
 output = ''
 
@@ -212,3 +203,9 @@ def run(src, filename='editor'):
         state = 0
     t1 = time.perf_counter()
     return state, t0, t1, msg
+
+def reset():
+    if has_ace:
+        reset_src()
+    else:
+        reset_src_area()
