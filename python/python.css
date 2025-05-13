@@ -1,17 +1,69 @@
 .container {
-    width: 100%;
+  width: 100%;
+  height: 100vh;
+  font-family: 'Consolas', 'Monaco', 'Courier New', monospace;
+  /* background-color: #f5f5f5; */
 }
 
-#editor { 
-    position: absolute;
-    top: 5%;
-    bottom: 0;         
-    width: 50%;
-  }
+#editor {
+  position: absolute;
+  top: 60px;
+  bottom: 20px;
+  left: 20px;
+  width: 48%;
+  border: 1px solid #ddd;
+  border-radius: 8px;
+  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+  font-size: 24px;
+  /* background-color: #fff; */
+}
+
 #console {
-    position: absolute;
-    top: 5%;
-    bottom: 0;
-    left: 52%;
-    width: 40%;
-  }
+  position: absolute;
+  top: 60px;
+  bottom: 20px;
+  right: 20px;
+  width: 48%;
+  border: 1px solid #ddd;
+  border-radius: 8px;
+  padding: 10px;
+  background-color: #1e1e1e;
+  color: #f0f0f0;
+  font-family: 'Consolas', 'Monaco', 'Courier New', monospace;
+  font-size: 24px;
+  line-height: 1.5;
+  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+  resize: none;
+  overflow-y: auto;
+}
+
+#run {
+  position: absolute;
+  top: 15px;
+  left: 20px;
+  padding: 8px 16px;
+  background-color: #4CAF50;
+  color: white;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+  font-size: 14px;
+  font-weight: bold;
+  transition: background-color 0.3s;
+  z-index: 100;
+}
+
+#run:hover {
+  background-color: #45a049;
+}
+
+/* Estilo para el título */
+.title {
+  position: absolute;
+  top: 15px;
+  left: 50%;
+  transform: translateX(-50%);
+  font-size: 24px;
+  font-weight: bold;
+  color: #333;
+}
