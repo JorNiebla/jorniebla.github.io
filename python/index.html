@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" translate="no">
   <head>
     <title>Editor Python</title>
     <link rel="stylesheet" href="python.css">
@@ -9,12 +9,27 @@
   <body onload=brython()>
     <div class="title">Editor de Python</div>
     <noscript>Please enable Javascript to view this page correctly</noscript>
-    <button id="run">Ejecutar</button>
-    <!-- Mejor hacer aquí con tabla para título -->
+    <div class="controls">
+      <button id="run">Ejecutar</button>
+      <select id="examples">
+        <option value="">Ejemplos...</option>
+        <option value="hello">Hola Mundo</option>
+        <option value="loop">Bucle For</option>
+        <option value="function">Función</option>
+        <option value="class">Clase</option>
+      </select>
+      <select id="themes">
+        <option value="">Temas...</option>
+        <option value="dracula">Dracula</option>
+        <option value="monokai">Monokai</option>
+        <option value="solarized_light">Solarized Light</option>
+        <option value="github">GitHub</option>
+      </select>
+    </div>
     <div class="container">
       <div id="editor">for i in range(10):
     print(i)</div>
-    
+      
       <script src="https://cdnjs.cloudflare.com/ajax/libs/ace/1.41.0/ace.js" type="text/javascript" charset="utf-8"></script>
       <script src="https://cdnjs.cloudflare.com/ajax/libs/ace/1.41.0/ext-language_tools.js" type="text/javascript" charset="utf-8"></script>
       <script>
@@ -23,8 +38,6 @@
         editor.session.setMode("ace/mode/python");
       </script>
 
-      
-
       <textarea id="console" contenteditable>Aquí se mostrará la salida cuando ejecutes el código.</textarea>
 
       <script type="text/python3">
@@ -32,12 +45,32 @@
         from browser import html
 
         import editor
-        # next functions are defined in editor.py
+        
+        # Ejemplos de código
+        examples = {
+            "hello": 'print("Hola Mundo!")',
+            "loop": 'for i in range(5):\n    print(f"Valor: {i}")',
+            "function": 'def suma(a, b):\n    return a + b\n\nresultado = suma(3, 4)\nprint("Resultado:", resultado)',
+            "class": 'class Persona:\n    def __init__(self, nombre):\n        self.nombre = nombre\n    def saludar(self):\n        print(f"Hola, soy {self.nombre}")\n\np = Persona("Juan")\np.saludar()'
+        }
+
         def run(ev):
             document['console'].value = ''
             editor.run(editor.editor.getValue())
             
+        def load_example(ev):
+            example = ev.target.value
+            if example in examples:
+                editor.editor.setValue(examples[example])
+                
+        def change_theme(ev):
+            theme = ev.target.value
+            if theme:
+                editor.editor.setTheme(f'ace/theme/${theme}')
+            
         document['run'].bind('click', run)
+        document['examples'].bind('change', load_example)
+        document['themes'].bind('change', change_theme)
 
         editor.reset()
       </script>
