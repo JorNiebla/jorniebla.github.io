@@ -30,8 +30,8 @@
       <div id="editor">for i in range(10):
     print(i)</div>
       
-      <script src="https://cdnjs.cloudflare.com/ajax/libs/ace/1.41.0/ace.js" type="text/javascript" charset="utf-8"></script>
-      <script src="https://cdnjs.cloudflare.com/ajax/libs/ace/1.41.0/ext-language_tools.js" type="text/javascript" charset="utf-8"></script>
+      <script src="https://cdn.jsdelivr.net/npm/ace-builds/src-min-noconflict/ace.js" type="text/javascript" charset="utf-8"></script>
+      <script src="https://cdn.jsdelivr.net/npm/ace-builds/src-min-noconflict/ext-language_tools.js" type="text/javascript" charset="utf-8"></script>
       <script>
         var editor = ace.edit("editor");
         editor.setTheme("ace/theme/dracula");
@@ -66,7 +66,6 @@
         def change_theme(ev):
             theme = ev.target.value
             if theme:
-                print(theme)
                 editor.editor.setTheme(f'ace/theme/{theme}')
             
         document['run'].bind('click', run)
