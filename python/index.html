@@ -66,7 +66,8 @@
         def change_theme(ev):
             theme = ev.target.value
             if theme:
-                editor.editor.setTheme(f'ace/theme/${theme}')
+                print(theme)
+                editor.editor.setTheme(f'ace/theme/{theme}')
             
         document['run'].bind('click', run)
         document['examples'].bind('change', load_example)
