@@ -11,12 +11,21 @@
     <noscript>Please enable Javascript to view this page correctly</noscript>
     <div class="controls">
       <button id="run">Ejecutar</button>
-      <select id="examples">
-        <option value="">Ejemplos...</option>
-        <option value="hello">Hola Mundo</option>
-        <option value="loop">Bucle For</option>
-        <option value="function">Función</option>
-        <option value="class">Clase</option>
+      <select id="cursos">
+        <option value="tercero">3º ESO</option>
+        <option value="cuarto">4º ESO</option>
+      </select>
+      <select id="conceptos">
+        <option value="secuencias">Secuencias</option>
+        <option value="condicionales">Condicionales</option>
+        <option value="bucles">Bucles</option>
+        <option value="funciones">Funciones</option>
+      </select>
+      <select id="ejercicios">
+        <option value="1">Primer ejercicio</option>
+        <option value="2">Segundo ejercicio</option>
+        <option value="3">Tercer ejercicio</option>
+        <option value="4">Cuarto ejercicio</option>
       </select>
       <select id="themes">
         <option value="">Temas...</option>
@@ -40,40 +49,7 @@
 
       <textarea id="console" contenteditable>Aquí se mostrará la salida cuando ejecutes el código.</textarea>
 
-      <script type="text/python3">
-        from browser import document, window
-        from browser import html
-
-        import editor
-        
-        # Ejemplos de código
-        examples = {
-            "hello": 'print("Hola Mundo!")',
-            "loop": 'for i in range(5):\n    print(f"Valor: {i}")',
-            "function": 'def suma(a, b):\n    return a + b\n\nresultado = suma(3, 4)\nprint("Resultado:", resultado)',
-            "class": 'class Persona:\n    def __init__(self, nombre):\n        self.nombre = nombre\n    def saludar(self):\n        print(f"Hola, soy {self.nombre}")\n\np = Persona("Juan")\np.saludar()'
-        }
-
-        def run(ev):
-            document['console'].value = ''
-            editor.run(editor.editor.getValue())
-            
-        def load_example(ev):
-            example = ev.target.value
-            if example in examples:
-                editor.editor.setValue(examples[example])
-                
-        def change_theme(ev):
-            theme = ev.target.value
-            if theme:
-                editor.editor.setTheme(f'ace/theme/{theme}')
-            
-        document['run'].bind('click', run)
-        document['examples'].bind('change', load_example)
-        document['themes'].bind('change', change_theme)
-
-        editor.reset()
-      </script>
+      <script type="text/python3" src="formato-editor.py"></script>
     </div>
   </body>
 </html>
