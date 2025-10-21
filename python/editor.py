@@ -17,7 +17,9 @@ else:
 
 has_ace = True
 tab_size = 4
-sample_code = f'for i in range(10):\n{' ' * tab_size}print(i)'
+# sample_code = f'for i in range(10):\n{' ' * tab_size}print(i)'
+with open('intro.py', 'r') as file:
+    sample_code = file.read()
 
 try:
     def handle_editor_change(*args):
@@ -64,11 +66,10 @@ def reset_src():
     editor.gotoLine(0)
 
 def reset_src_area():
-    if storage and "py_src" in storage:
-        editor.value = storage["py_src"]
-    else:
-        editor.value = sample_code
-
+    # if storage and "py_src" in storage:
+    #     editor.value = storage["py_src"]
+    # else:
+    editor.value = sample_code
 
 class cOutput:
     encoding = 'utf-8'
@@ -205,7 +206,7 @@ def run(src, filename='editor'):
     return state, t0, t1, msg
 
 def reset():
-    if has_ace:
-        reset_src()
-    else:
-        reset_src_area()
+    # if has_ace:
+    #     reset_src()
+    # else:
+    reset_src_area()

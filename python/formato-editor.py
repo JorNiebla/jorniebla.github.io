@@ -69,6 +69,9 @@ for curso in examples:
             with open(f'ejercicios/{curso}/{concepto}/{concepto}{ejercicio}.py', 'r') as file:
                 examples[curso][concepto][ejercicio] = file.read()
 
+with open('intro.py', 'r') as file:
+    examples["default"] = file.read()
+
 def run(ev):
     document['console'].value = ''
     editor.run(editor.editor.getValue())
@@ -79,6 +82,9 @@ def load_example(ev):
     ejercicio = document['ejercicios'].value
     editor.editor.setValue(examples[curso][concepto][ejercicio])
         
+def load_default():
+    editor.editor.setValue(examples["default"])
+
 def change_theme(ev):
     theme = ev.target.value
     if theme:

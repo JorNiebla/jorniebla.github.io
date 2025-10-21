@@ -1,6 +1,6 @@
 # Secuencias - 3º ESO - Ejercicio 1
 # -----------------------------------------------
-# Reordena la siguiente líneas para que la salida 
+# Reordena las siguientes líneas para que la salida 
 # por pantalla sean números ordenados.
 # -----------------------------------------------
 
