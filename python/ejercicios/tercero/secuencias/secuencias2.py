@@ -18,11 +18,9 @@ edad = ''
 print("Tienes " + edad + " años")
 
 # ------------------------------------------------
-# Utiliza int() y str() para convertir correctamente
-# los datos. Recuerda que int() es para convertir a
-# números enteros y str() es para convertir a cadenas
-# de texto.
+# Imprime correctamente la edad que tendrá
+# el usuario dentro de 5 años. Recuerda que puedes 
+# usar int() es para convertir a números enteros. 
 # ------------------------------------------------
 
-edad = edad + 5
 print("Dentro de 5 años tendrás " + edad + " años")
