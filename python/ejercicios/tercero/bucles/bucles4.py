@@ -3,8 +3,9 @@
 # Crea un programa que recorra la lista alumnos
 # y diga si están aprobados o no.
 # ¡Ojo! la lista de alumnos está compuestas por 
-# listas más pequeñas que representan nombre y nota
-# Pista, recuerda que usas corchetes para acceder
+# listas más pequeñas que representan nombre y la
+# nota.
+# Pista, recuerda usar corchetes para acceder
 # a índices.
 # -----------------------------------------------
 
