@@ -1,4 +1,4 @@
-# Funciones - 3º ESO - Ejercicio 2
+# Funciones - 3º ESO - Ejercicio 1
 # -----------------------------------------------
 # Crea una función que imprima el nombre y la nota
 # de un alumno.

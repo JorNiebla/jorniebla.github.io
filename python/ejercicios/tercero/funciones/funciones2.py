@@ -1,4 +1,4 @@
-# Funciones - 3º ESO - Ejercicio 1
+# Funciones - 3º ESO - Ejercicio 2
 # -----------------------------------------------
 # Crea una función que devuelva True si un número
 # es par o False si es impar.
