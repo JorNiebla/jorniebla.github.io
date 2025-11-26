@@ -1,13 +1,13 @@
 <!DOCTYPE html>
 <html lang="en" translate="no">
   <head>
-    <title>Editor Python</title>
+    <title>Python Piensa ComputacionULLmente</title>
     <link rel="stylesheet" href="python.css">
   </head>
   <script src="https://cdn.jsdelivr.net/npm/brython@3/brython.min.js"></script>
   <script src="https://cdn.jsdelivr.net/npm/brython@3/brython_stdlib.js"></script>
   <body onload=brython()>
-    <div class="title">Editor de Python</div>
+    <div class="title">Python Piensa ComputacionULLmente</div>
     <noscript>Please enable Javascript to view this page correctly</noscript>
     <div class="controls">
       <button id="run">Ejecutar</button>
@@ -53,9 +53,18 @@ print("¡Hola Mundo!")</div>
         editor.session.setMode("ace/mode/python");
       </script>
 
-      <textarea id="console" contenteditable>Aquí se mostrará la salida cuando ejecutes el código.</textarea>
+      <div id="console-wrapper">
+        <textarea id="console">Aquí se mostrará la salida cuando ejecutes el código.</textarea>
+      </div>
 
       <script type="text/python3" src="formato-editor.py"></script>
     </div>
+    <div class="footer-logos">
+      <img src="imagenes/logo1.png" alt="Cabildo de Tenerife">
+      <img src="imagenes/logo2.png" alt="Tenerife Joven y Educa">
+      <img src="imagenes/logo3.png" alt="Fondo de Desarrollo de Canarias">
+      <img src="imagenes/logo4.png" alt="Fundación General de la Universidad de La Laguna">
+      <img src="imagenes/logo5.png" alt="Cienci@ULL">
+    </div>    
   </body>
 </html>
