@@ -1,4 +1,4 @@
-# Funciones - 4º ESO - Ejercicio 3
+# Funciones - 4º ESO - Ejercicio Extra 1
 # -----------------------------------------------
 # Crea una función que calcule el factorial de un
 # número y lo devuelva.

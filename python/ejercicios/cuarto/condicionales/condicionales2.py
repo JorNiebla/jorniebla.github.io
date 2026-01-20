@@ -1,7 +1,6 @@
 # Condicionales - 4º ESO - Ejercicio 2
 # -----------------------------------------------
-# Escribe un programa que pida al usuario un
-# número e imprima si es divisible entre 3.
-# Pista: El operador % da como resultado el resto
-# de una división
+# Crea un programa que pida al usuario su nota y
+# le imprima que tipo de nota ha sacado (suspenso,
+# aprobado, bien, notable, sobresaliente)
 # -----------------------------------------------

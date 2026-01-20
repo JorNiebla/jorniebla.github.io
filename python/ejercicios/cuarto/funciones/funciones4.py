@@ -1,4 +1,4 @@
-# Funciones - 4º ESO - Ejercicio 4
+# Funciones - 4º ESO - Ejercicio Extra 2
 # -----------------------------------------------
 # Crea una función que calcule la sucesión de fibonacci
 # del numero de un tamaño dado.

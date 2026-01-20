@@ -1,4 +1,4 @@
-# Secuencias - 4º ESO - Ejercicio 4
+# Secuencias - 4º ESO - Ejercicio Extra 2
 # -----------------------------------------------
 # Escribe una programa que pida al usuario introducir
 # su edad y le imprima su equivalente en meses y en días.

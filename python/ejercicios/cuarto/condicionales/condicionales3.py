@@ -1,4 +1,4 @@
-# Condicionales - 4º ESO - Ejercicio 3
+# Condicionales - 4º ESO - Ejercicio Extra 1
 # -----------------------------------------------
 # Crea un programa que pida al usuario una edad
 # e imprima si se trata de un niño (0 a 12 años),

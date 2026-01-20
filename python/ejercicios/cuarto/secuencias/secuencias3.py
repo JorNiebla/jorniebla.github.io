@@ -1,8 +1,7 @@
-# Secuencias - 4º ESO - Ejercicio 3
+# Secuencias - 4º ESO - Ejercicio Extra 1
 # -----------------------------------------------
 # Escribe una programa que pida al usuario introducir
-# una cantidad de minutos, y que después imprima los
-# segundos equivalentes por pantalla.
-# Pista: Recuerda que input() lee cadenas de texto,
-# necesitaríamos interpretarlo como número.
+# su nombre y lo imprima por pantalla con un saludo.
+# Pista: Usa input() para leer el teclado y print
+# para escribir.
 # -----------------------------------------------

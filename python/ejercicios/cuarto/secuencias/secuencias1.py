@@ -2,10 +2,6 @@
 # -----------------------------------------------
 # Completa el programa para que pida al usuario
 # por teclado su información y la escriba por pantalla
+# sigue el algoritmo de la presentación
 # -----------------------------------------------
 
-nombre = ""
-apellido = ""
-edad = 0
-
-print("Eres " + nombre + " " + apellido + " y tienes " + str(edad) + " años.")

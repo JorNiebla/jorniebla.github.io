@@ -99,4 +99,4 @@ document['themes'].bind('change', change_theme)
 editor.reset()
 # Quiero que cargue el ejercicio base (3º, secuencia, ej1), 
 # carga lo anterior si puede de todas formas
-load_example(0)
+# load_example(0)

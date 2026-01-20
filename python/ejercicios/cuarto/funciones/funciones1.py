@@ -1,19 +1,20 @@
 # Funciones - 4º ESO - Ejercicio 1
 # -----------------------------------------------
-# Crea una función que imprima las iniciales
-# de una persona, su datos son una lista compuesta
-# de Nombre, Apellido1, Apellido2
+# Crea una función que cuente hasta el número que requiera 
+# el usuario
+# Por ejemplo: 
+# Usuario introduce 5. Pues se debe imprimir: 
+# Seguir algortimo del pdf
 # -----------------------------------------------
 
-lista_alumnos = [ ["Jesús", "Pérez", "Gónzalez"],
-                  ["Alberto", "López", "Smith"], 
-                  ["Sandra", "Torres", "Mesa"], 
-                  ["Ramón", "Rodríguez", "López"], ]
+# 1.- Pedir al usuario hasta que número quiere contar
+numero = 
 
-def ini_alumno(alumno):
+# 2.- Definir la función. Recuerda que esta función depende del número que quiere contar el usuario
 
-    print()
+def funcion():
+    # Introducir aqui el bucle for que se debe usar
 
 
-for alumno in lista_alumnos:
-    ini_alumno(alumno)
+# 3.- Llamar a la función
+funcion()

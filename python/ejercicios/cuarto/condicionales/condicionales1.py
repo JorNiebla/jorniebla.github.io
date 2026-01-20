@@ -5,9 +5,11 @@
 # o igual al segundo.
 # -----------------------------------------------
 
+# 1.- Solicitar información al usuario 
 n1 = ''
 n2 = ''
 
+# 2.- Establecer condiciones, recuerda que son 3 opciones
 if ():
     print(str(n1) + " es mayor que " + str(n2))
 elif():
