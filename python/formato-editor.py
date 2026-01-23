@@ -80,7 +80,10 @@ def load_example(ev):
     curso = document['cursos'].value
     concepto = document['conceptos'].value
     ejercicio = document['ejercicios'].value
-    editor.editor.setValue(examples[curso][concepto][ejercicio])
+    if ejercicio != '0':
+        editor.editor.setValue(examples[curso][concepto][ejercicio])
+    else:
+        editor.editor.setValue(examples["default"])
         
 def load_default():
     editor.editor.setValue(examples["default"])
